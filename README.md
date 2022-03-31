@@ -1,35 +1,35 @@
 # README
 users_table
 
-| Column                | Type    | Options                |
-| ---------------------------------------------------------|
-| nickname              | string  | null: false            |
-| email                 | string  | NOT null, unique: true |
-| encrypted_password    | string  | NOT null               |
-| family_name           | string  | NOT null               | 
-| first_name            | string  | NOT null               |
-| family_name_kana      | string  | NOT null               |
-| first_name_kana       | string  | NOT null               |
-| birthday              | Date    | NOT null               |
+| Column                | Type    | Options                   |
+| ------------------------------------------------------------|
+| nickname              | string  | null: false               |
+| email                 | string  | null: false, unique: true |
+| encrypted_password    | string  | null: false               |
+| family_name           | string  | null: false               | 
+| first_name            | string  | null: false               |
+| family_name_kana      | string  | null: false               |
+| first_name_kana       | string  | null: false               |
+| birthday              | Date    | null: false               |
 
 has_many :items
-has_one :purchases
+has_many :purchases
 
 
 
 items_table
 
-| Column                | Type       | Options                     |
-| -----------------------------------------------------------------|
-| item_name             | string     | NOT null                    |
-| item_detail           | text       | NOT null                    |
-| item_category_id      | integer    | NOT null                    |
-| item_status_id        | integer    | NOT null                    | 
-| delivery_fee_id       | integer    | NOT null                    |
-| delivery_days_id      | integer    | NOT null                    |
-| item_price            | integer    | NOT null                    |
-| user                  | references | NOT null foreign_key: true  |
-| item_place            | string     | NOT null                    |
+| Column                | Type       | Options                        |
+| --------------------------------------------------------------------|
+| item_name             | string     | null: false                    |
+| item_detail           | text       | null: false                    |
+| item_category_id      | integer    | null: false                    |
+| item_status_id        | integer    | null: false                    | 
+| delivery_fee_id       | integer    | null: false                    |
+| delivery_day_id       | integer    | null: false                    |
+| item_price            | integer    | null: false                    |
+| user                  | references | null: false foreign_key: true  |
+| prefecture_id         | string     | null: false                    |
 
 belongs_to :user
 has_one :purchase
@@ -37,15 +37,15 @@ has_one :purchase
 
 addresses_table
 
-| Column                | Type       | Options         |
-| -----------------------------------------------------|
-| post_code             | string     | NOT null        | 
-| prefecture_id         | integer    | NOT null        |
-| city_town             | string     | NOT null        |
-| address               | string     | NOT null        |
-| building_name         | string     |                 |
-| phone_number          | string     | NOT null        |
-| purchase              | references | NOT null 外部キー |
+| Column                | Type       | Options                        |
+| --------------------------------------------------------------------|
+| post_code             | string     | null: false                    | 
+| prefecture_id         | integer    | null: false                    |
+| city_town             | string     | null: false                    |
+| address               | string     | null: false                    |
+| building_name         | string     |                                |
+| phone_number          | string     | null: false                    |
+| purchase              | references | null: false, foreign_key: true |
 
 
 belongs_to :purchase
@@ -53,10 +53,10 @@ belongs_to :purchase
 
 purchases_table
 
-| Column                | Type       | Options                     |
-| -----------------------------------------------------------------|
-| user                  | references | NOT null, foreign_key: true |
-| item                  | referemces | NOT null, foreign_key: true |
+| Column                | Type       | Options                        |
+| --------------------------------------------------------------------|
+| user                  | references | null: false, foreign_key: true |
+| item                  | referemces | null: false, foreign_key: true |
 
 belongs_to :user
 belongs_to :item

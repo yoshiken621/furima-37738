@@ -29,7 +29,7 @@ items_table
 | delivery_day_id       | integer    | null: false                    |
 | item_price            | integer    | null: false                    |
 | user                  | references | null: false foreign_key: true  |
-| prefecture_id         | string     | null: false                    |
+| prefecture_id         | integer    | null: false                    |
 
 belongs_to :user
 has_one :purchase
@@ -56,7 +56,7 @@ purchases_table
 | Column                | Type       | Options                        |
 | --------------------------------------------------------------------|
 | user                  | references | null: false, foreign_key: true |
-| item                  | referemces | null: false, foreign_key: true |
+| item                  | references | null: false, foreign_key: true |
 
 belongs_to :user
 belongs_to :item

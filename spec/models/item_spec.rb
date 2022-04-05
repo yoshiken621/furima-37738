@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  before do 
+  before do
     @item = FactoryBot.build(:item)
   end
 
@@ -9,8 +9,8 @@ RSpec.describe Item, type: :model do
     context '商品出品ができる場合' do
       it 'item_name, item_detail, item_category_id, item_status_id, deliverly_fee_id, deliverly_day_id, item_price, prefecture_id, imageが存在する' do
         expect(@item).to be_valid
-      end 
-    end 
+      end
+    end
 
     context '商品が出品できない場合' do
       it 'imageが空では出品できない' do
@@ -62,7 +62,7 @@ RSpec.describe Item, type: :model do
       end
 
       it 'item_priceが空では出品できない' do
-        @item.item_price = ""
+        @item.item_price = ''
         @item.valid?
         expect(@item.errors.full_messages).to include "Item price can't be blank"
       end
@@ -70,20 +70,20 @@ RSpec.describe Item, type: :model do
       it 'item_priceが300以下では出品できない' do
         @item.item_price = 200
         @item.valid?
-        expect(@item.errors.full_messages).to include "Item price is not included in the list"
+        expect(@item.errors.full_messages).to include 'Item price is not included in the list'
       end
 
       it 'item_priceが9999999以上では出品できない' do
-        @item.item_price = 1000000000
+        @item.item_price = 1_000_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include "Item price is not included in the list"
+        expect(@item.errors.full_messages).to include 'Item price is not included in the list'
       end
 
       it 'item_priceが半角数値でないと出品できない' do
-        @item.item_price = "あああああ"
+        @item.item_price = 'あああああ'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Item price is not included in the list"
+        expect(@item.errors.full_messages).to include 'Item price is not included in the list'
       end
-    end 
-  end 
+    end
+  end
 end

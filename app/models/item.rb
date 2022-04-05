@@ -13,7 +13,6 @@ class Item < ApplicationRecord
   validates :item_name, presence: true
   validates :item_detail, presence: true
   validates :item_price, presence: true, inclusion: {in: 300..9999999}, format: { with: /\A[0-9]+\z/ }
-  validates :user, presence: true
   validates :image, presence: true
   validates :item_category_id, :item_status_id, :delivery_fee_id, :delivery_day_id, :prefecture_id, numericality: { other_than: 1 , message: "can't be blank"}
 

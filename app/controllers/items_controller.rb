@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.create(item_params)
+    @item = Item.new(item_params)
     if @item.save
       redirect_to root_path
     else
@@ -45,7 +45,8 @@ class ItemsController < ApplicationController
   end
 
   def access_controll
-    redirect_to '/users/sign_in' unless user_signed_in? && @item.user_id == current_user.id
+    @item = Item.find(params[:id])
+    redirect_to root_path unless @item.user_id == current_user.id
   end
 
   def choose_id

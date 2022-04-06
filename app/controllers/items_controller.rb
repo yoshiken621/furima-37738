@@ -1,13 +1,13 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit]
-  before_action :access_controll, only: :edit
-  before_action :choose_id, only: [:show, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
+  before_action :choose_id, only: [:show, :edit, :update, :destroy]
+  before_action :access_controll, only: [:edit, :destroy]
   def new
     @item = Item.new
   end
 
   def create
-    @item = Item.create(item_params)
+    @item = Item.new(item_params)
     if @item.save
       redirect_to root_path
     else
@@ -33,6 +33,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    redirect_to root_path if @item.destroy
+  end
+
   private
 
   def item_params
@@ -41,7 +45,7 @@ class ItemsController < ApplicationController
   end
 
   def access_controll
-    redirect_to '/users/sign_in' unless user_signed_in?
+    redirect_to root_path unless @item.user_id == current_user.id
   end
 
   def choose_id

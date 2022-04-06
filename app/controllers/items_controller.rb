@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
-  before_action :access_controll, only: [:edit, :destroy]
   before_action :choose_id, only: [:show, :edit, :update, :destroy]
+  before_action :access_controll, only: [:edit, :destroy]
   def new
     @item = Item.new
   end
@@ -45,7 +45,6 @@ class ItemsController < ApplicationController
   end
 
   def access_controll
-    @item = Item.find(params[:id])
     redirect_to root_path unless @item.user_id == current_user.id
   end
 

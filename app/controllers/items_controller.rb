@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
-  before_action :access_controll, only: :edit
+  before_action :access_controll, only: [:edit, :destroy]
   before_action :choose_id, only: [:show, :edit, :update, :destroy]
   def new
     @item = Item.new
@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
   end
 
   def access_controll
-    redirect_to '/users/sign_in' unless user_signed_in?
+    redirect_to '/users/sign_in' unless user_signed_in? && @item.user_id == current_user.id
   end
 
   def choose_id

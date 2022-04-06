@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit]
   before_action :access_controll, only: :edit
-
+  before_action :choose_id, only: [:show, :edit, :update]
   def new
     @item = Item.new
   end
@@ -20,16 +20,12 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
-    redirect_to root_path if user_signed_in? && @item.user_id != current_user.id
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to action: :show
     else
@@ -46,5 +42,9 @@ class ItemsController < ApplicationController
 
   def access_controll
     redirect_to '/users/sign_in' unless user_signed_in?
+  end
+
+  def choose_id
+    @item = Item.find(params[:id])
   end
 end

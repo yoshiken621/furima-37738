@@ -32,19 +32,19 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'post_codeにハイフンがないと購入できない' do
         @purchase_address.post_code = '1111111'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@purchase_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
 
       it 'post_codeが3桁ハイフン4桁でないと購入できない' do
         @purchase_address.post_code = '11-11111'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@purchase_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
 
       it 'post_codeが半角文字列でないと購入できない' do
         @purchase_address.post_code = '１１１ー１１１１'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@purchase_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
 
       it 'prefecture_idがないと購入できない' do
@@ -74,13 +74,13 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'phone_numberが10桁以上11桁以内でないと購入できない' do
         @purchase_address.phone_number = '999999999'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Phone number is invalid.")
-      end 
+        expect(@purchase_address.errors.full_messages).to include('Phone number is invalid.')
+      end
 
       it 'phone_numberが半角数値でないと購入できない' do
         @purchase_address.phone_number = 'ああああああああああ'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Phone number is invalid.")
+        expect(@purchase_address.errors.full_messages).to include('Phone number is invalid.')
       end
     end
   end

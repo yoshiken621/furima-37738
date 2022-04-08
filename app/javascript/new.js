@@ -3,7 +3,7 @@ function calculate(){
   const addTaxPrice = document.getElementById("add-tax-price");
   const profit = document.getElementById("profit");
 
-  itemPrice.addEventListener('input', () =>{
+  itemPrice.addEventListener('input', () => {
     const priceInput = itemPrice.value;
     const tax = (priceInput * 0.1);
     addTaxPrice.innerHTML = Math.floor(tax);

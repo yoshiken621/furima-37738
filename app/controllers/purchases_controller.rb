@@ -1,6 +1,6 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!
-  before_action :choose_id
+  before_action :choose_id, only:[:index, :create]
 
   def index
     @purchase_address = PurchaseAddress.new
@@ -40,6 +40,6 @@ class PurchasesController < ApplicationController
   end
 
   def choose_id
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
   end
 end

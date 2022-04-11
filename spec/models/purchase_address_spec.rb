@@ -2,8 +2,12 @@ require 'rails_helper'
 
 RSpec.describe PurchaseAddress, type: :model do
   before do
-    @purchase_address = FactoryBot.build(:purchase_address)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id, item_id: item.id)
+    sleep 0.1
   end
+
 
   describe '商品購入機能' do
     context '商品が購入できる場合' do
@@ -47,8 +51,8 @@ RSpec.describe PurchaseAddress, type: :model do
         expect(@purchase_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
 
-      it 'prefecture_idがないと購入できない' do
-        @purchase_address.prefecture_id = ''
+      it 'prefecture_idが未選択だと購入できない' do
+        @purchase_address.prefecture_id = '1'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Prefecture can't be blank")
       end
@@ -71,8 +75,14 @@ RSpec.describe PurchaseAddress, type: :model do
         expect(@purchase_address.errors.full_messages).to include("Phone number can't be blank")
       end
 
-      it 'phone_numberが10桁以上11桁以内でないと購入できない' do
+      it 'phone_numberが10桁以上でないと購入できない' do
         @purchase_address.phone_number = '999999999'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include('Phone number is invalid.')
+      end
+
+      it 'phone_numberが11桁以内でないと購入できない' do
+        @purchase_address.phone_number = '999999999999'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include('Phone number is invalid.')
       end
@@ -81,6 +91,18 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.phone_number = 'ああああああああああ'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include('Phone number is invalid.')
+      end
+
+      it 'user_idが空だと購入できない' do
+        @purchase_address.user_id = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空だと購入できない' do
+        @purchase_address.item_id = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

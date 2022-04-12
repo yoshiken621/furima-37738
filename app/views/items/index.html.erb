@@ -157,10 +157,9 @@
         </li>
       <% end %>
 
-      
       <% unless @items.present? %>
         <li class='list'>
-          <%= link_to "/items/#{item.id}" do %>
+          <%= link_to "/items/#{@items.id}" do %>
           <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
           <div class='item-info'>
             <h3 class='item-name'>

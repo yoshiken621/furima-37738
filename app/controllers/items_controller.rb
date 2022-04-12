@@ -45,7 +45,9 @@ class ItemsController < ApplicationController
   end
 
   def access_controll
-    redirect_to root_path unless @item.user_id == current_user.id
+    if @item.purchase.presence || @item.user_id != current_user.id
+      redirect_to root_path  
+    end
   end
 
   def choose_id
